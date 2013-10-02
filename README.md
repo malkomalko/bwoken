@@ -83,6 +83,7 @@ $ bwoken test -h
         --simulator       Use simulator, even when an iDevice is connected
         --family          Test only one device type, either ipad or iphone. Default is to test on both
         --scheme          Specify a custom scheme
+        --product-name    Specify a custom product name (e.g. --product-name="My Product"). Default is the name of of the xcodeproj file
         --formatter       Specify a custom formatter (e.g., --formatter=passthru)
         --focus           Specify particular tests to run
         --clobber         Remove any generated file

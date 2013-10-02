@@ -26,11 +26,13 @@ opts = Slop.parse :help => true do
     on :family=, 'Test only one device type, either ipad or iphone. Default is to test on both',
       :match => /\A(?:ipad|iphone|all)\Z/i, :default => 'all'
     on :scheme=, 'Specify a custom scheme'
+    on :'product-name=', 'Specify a custom product name (e.g. --product-name="My Product"). Default is the name of of the xcodeproj file', :default => ''
     on :formatter=, 'Specify a custom formatter (e.g., --formatter=passthru)', :default => 'colorful'
     on :focus=, 'Specify particular tests to run', :as => Array, :default => []
     on :clobber, 'Remove any generated file'
     on :'skip-build', 'Do not build the iOS binary'
     on :verbose, 'Be verbose'
+    on :configuration=, 'The build configruation to use (e.g., --configuration=Release)', :default => 'Debug'
 
     run { ran_command = 'test' }
   end

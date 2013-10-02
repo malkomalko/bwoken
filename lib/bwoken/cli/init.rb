@@ -8,7 +8,7 @@ module Bwoken
       class << self
 
         def help_banner
-          <<BANNER
+          <<-BANNER
 Initialize your UIAutomation project.
 
 

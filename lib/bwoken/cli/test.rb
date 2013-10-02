@@ -4,7 +4,6 @@ require 'fileutils'
 
 require 'bwoken'
 require 'bwoken/build'
-require 'bwoken/coffeescript'
 require 'bwoken/device'
 require 'bwoken/formatter'
 require 'bwoken/formatters/passthru_formatter'
@@ -16,7 +15,7 @@ module Bwoken
     class Test
 
       def self.help_banner
-        <<BANNER
+        <<-BANNER
 Run your tests. If you don't specify which tests, bwoken will run them all
 
   bwoken test --simulator # runs all tests in the simulator
@@ -46,6 +45,7 @@ BANNER
       #       :simulator  - should force simulator use (default: nil)
       #       :skip-build - do not build the iOS binary
       #       :verbose    - be verbose
+      #       :product-name - the name of the generated .app file if it is different from the name of the project/workspace
       def initialize opts
         opts = opts.to_hash if opts.is_a?(Slop)
         self.options = opts.to_hash.tap do |o|
@@ -59,6 +59,7 @@ BANNER
       def run
         clobber if options[:clobber]
         compile unless options[:'skip-build']
+        clean
         test
       end
 
@@ -67,10 +68,13 @@ BANNER
           b.formatter = options[:formatter]
           b.scheme = options[:scheme] if options[:scheme]
           b.simulator = options[:simulator]
+          b.configuration = options[:configuration]
         end.compile
       end
 
       def test
+        Bwoken.app_name = options[:'product-name']
+
         ScriptRunner.new do |s|
           s.app_dir = Build.app_dir(options[:simulator])
           s.family = options[:family]

@@ -13,7 +13,15 @@ module Bwoken
     end
 
     def app_name
-      File.basename(File.basename(workspace_or_project, '.xcodeproj'), '.xcworkspace')
+      if @name && @name != ''
+        @name
+      else
+        File.basename(File.basename(workspace_or_project, '.xcodeproj'), '.xcworkspace')
+      end
+    end
+
+    def app_name= name
+      @name = name
     end
 
     def project_path
