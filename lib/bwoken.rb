@@ -9,7 +9,7 @@ module Bwoken
     end
 
     def tmp_path
-      File.join(path, 'tmp')
+      File.join(path, 'automation_results')
     end
 
     def app_name
@@ -21,7 +21,7 @@ module Bwoken
     end
 
     def test_suite_path
-      File.join(tmp_path, 'javascript')
+      File.join(path, 'tests')
     end
 
     def path_to_developer_dir

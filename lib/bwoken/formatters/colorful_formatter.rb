@@ -49,11 +49,11 @@ module Bwoken
     end
 
     on :before_build_start do
-      print "Building".blue
+      print "Building...".blue
     end
 
     on :build_line do |line|
-      print '.'.blue
+      # do nothing
     end
 
     on :build_successful do |line|

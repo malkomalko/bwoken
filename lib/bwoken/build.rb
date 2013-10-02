@@ -17,7 +17,7 @@ module Bwoken
       end
 
       def sdk simulator
-        simulator ? 'iphonesimulator' : 'iphoneos'
+        simulator ? 'iphonesimulator6.1' : 'iphoneos6.1'
       end
 
       def configuration_build_dir simulator
@@ -29,7 +29,6 @@ module Bwoken
       end
     end
 
-    #attr_accessor :flags #TODO: implement
     attr_accessor :formatter
     attr_accessor :scheme
     attr_accessor :simulator
@@ -37,7 +36,6 @@ module Bwoken
     attr_accessor :verbose
 
     def initialize
-      #self.flags = [] #TODO: implement
       self.scheme = Bwoken.app_name
       self.configuration = 'Debug'
 

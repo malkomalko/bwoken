@@ -26,7 +26,6 @@ opts = Slop.parse :help => true do
     on :family=, 'Test only one device type, either ipad or iphone. Default is to test on both',
       :match => /\A(?:ipad|iphone|all)\Z/i, :default => 'all'
     on :scheme=, 'Specify a custom scheme'
-    #on :flags=, 'Specify custom build flags (e.g., --flags="-arch=i386,foo=bar")', :as => Array, :default => [] # TODO: implement
     on :formatter=, 'Specify a custom formatter (e.g., --formatter=passthru)', :default => 'colorful'
     on :focus=, 'Specify particular tests to run', :as => Array, :default => []
     on :clobber, 'Remove any generated file'

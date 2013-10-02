@@ -6,7 +6,6 @@ require 'bwoken'
 require 'bwoken/build'
 require 'bwoken/coffeescript'
 require 'bwoken/device'
-#TODO: make formatters dynamically loadable during runtime
 require 'bwoken/formatter'
 require 'bwoken/formatters/passthru_formatter'
 require 'bwoken/formatters/colorful_formatter'
@@ -60,8 +59,6 @@ BANNER
       def run
         clobber if options[:clobber]
         compile unless options[:'skip-build']
-        clean
-        transpile
         test
       end
 
@@ -72,25 +69,6 @@ BANNER
           b.scheme = options[:scheme] if options[:scheme]
           b.simulator = options[:simulator]
         end.compile
-      end
-
-      def transpile
-        coffeescripts      = Rake::FileList['integration/coffeescript/**/*.coffee']
-        compiled_coffee    = coffeescripts.pathmap('%{^integration/coffeescript,integration/tmp/javascript}d/%n.js')
-        javascripts        = Rake::FileList['integration/javascript/**/*.js']
-        copied_javascripts = javascripts.pathmap('%{^integration/javascript,integration/tmp/javascript}d/%f')
-
-        compiled_coffee.zip(coffeescripts).each do |target, source|
-          containing_dir = target.pathmap('%d')
-          ensure_directory containing_dir
-          Bwoken::Coffeescript.compile source, target
-        end
-
-        copied_javascripts.zip(javascripts).each do |target, source|
-          containing_dir = target.pathmap('%d')
-          ensure_directory containing_dir
-          FileUtils.cp source, target
-        end
       end
 
       def test
@@ -109,7 +87,7 @@ BANNER
       end
 
       def clean
-        FileUtils.rm_rf Bwoken.test_suite_path
+        FileUtils.rm_rf Bwoken.tmp_path
       end
 
       def select_formatter formatter_name

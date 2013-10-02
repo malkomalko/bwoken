@@ -25,8 +25,9 @@ module Bwoken
 
     def env_variables
       {
-        'UIASCRIPT' => path,
-        'UIARESULTSPATH' => Bwoken.results_path
+        'UIASCRIPT' => "\"#{path}\"",
+        'UI_TESTS' => 1,
+        'UIARESULTSPATH' => "\"#{Bwoken.results_path}\""
       }
     end
 
@@ -37,9 +38,9 @@ module Bwoken
     def cmd
       "#{File.expand_path('../../../bin', __FILE__)}/unix_instruments.sh \
         #{device_flag} \
-        -D #{self.class.trace_file_path} \
-        -t #{Bwoken.path_to_automation_template} \
-        #{app_dir} \
+        -D \"#{self.class.trace_file_path}\" \
+        -t \"#{Bwoken.path_to_automation_template}\" \
+        \"#{app_dir}\" \
         #{env_variables_for_cli}"
     end
 
