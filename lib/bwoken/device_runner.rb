@@ -42,20 +42,12 @@ module Bwoken
 
     def test_files_from_feature_names
       feature_names.map do |feature_name|
-        File.join(Bwoken.test_suite_path, device_family, "#{feature_name}.js")
+        File.join(Bwoken.test_suite_path, "#{feature_name}.js")
       end
     end
 
     def all_test_files
-      all_files_in_test_dir - helper_files
-    end
-
-    def all_files_in_test_dir
-      Dir["#{Bwoken.test_suite_path}/#{device_family}/**/*.js"]
-    end
-
-    def helper_files
-      Dir["#{Bwoken.test_suite_path}/#{device_family}/**/helpers/**/*.js"]
+      [File.join(Bwoken.test_suite_path, "run_suite.js")]
     end
 
   end
