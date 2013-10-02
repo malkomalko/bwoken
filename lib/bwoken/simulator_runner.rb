@@ -1,6 +1,7 @@
 require 'bwoken'
 require 'bwoken/script'
 require 'bwoken/simulator'
+require 'fileutils'
 
 module Bwoken
   class SimulatorRunner
@@ -19,6 +20,7 @@ module Bwoken
     def execute
       Simulator.device_family = device_family
       scripts.each(&:run)
+      close_sim
     end
 
     def scripts
@@ -49,6 +51,16 @@ module Bwoken
 
     def all_test_files
       [File.join(Bwoken.test_suite_path, "run_suite.js")]
+    end
+
+    def close_sim
+      system "killall \"iPhone Simulator\" || true"
+    end
+
+    def reset_sim
+      close_sim
+      sim_root = "~/Library/Application Support/iPhone Simulator"
+      FileUtils.rm_rf File.expand_path(sim_root)
     end
 
   end

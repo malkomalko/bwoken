@@ -64,7 +64,6 @@ BANNER
 
       def compile
         Build.new do |b|
-          #b.flags = opts.flags #TODO: implement
           b.formatter = options[:formatter]
           b.scheme = options[:scheme] if options[:scheme]
           b.simulator = options[:simulator]
